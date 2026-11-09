@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f2f1eb" />
+  <meta name="description" content="데이터 분석, 머신러닝 실습과 MCP 공급망 위험 모니터링 프로젝트를 기록한 프로젝트 아카이브." />
+  <title>Project Fieldnotes — CSJ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+    :root{
+      --bg:#f2f1eb;--paper:#fbfaf6;--ink:#202720;--muted:#737a70;--line:#d9dbd1;
+      --green:#254e40;--green2:#356a55;--mint:#dce9df;--orange:#d77a4c;--yellow:#e9c77a;
+      --mono:'DM Mono',monospace;--sans:'Manrope','Noto Sans KR',sans-serif;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6}
+    button{font:inherit} .wrap{width:min(1160px,calc(100% - 56px));margin:0 auto}
+    .topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center}
+    .topbar-in{display:flex;align-items:center;justify-content:space-between;width:100%}
+    .brand{display:flex;align-items:center;gap:11px;font:500 12px var(--mono);letter-spacing:.1em;color:var(--ink)}
+    .brand-mark{width:24px;height:24px;border:1px solid var(--green);border-radius:50%;display:grid;place-items:center;color:var(--green);font-size:10px}
+    .nav{display:flex;align-items:center;gap:24px;color:var(--muted);font:11px var(--mono);letter-spacing:.08em}
+    .nav a{color:inherit;text-decoration:none}.nav a:hover{color:var(--green)}
+    .hero{padding:78px 0 52px;display:grid;grid-template-columns:1fr auto;gap:42px;align-items:end}
+    .eyebrow{display:flex;gap:10px;align-items:center;color:var(--green2);font:11px var(--mono);letter-spacing:.15em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:25px;height:1px;background:var(--green2)}
+    h1{font-size:clamp(42px,6vw,72px);letter-spacing:-.075em;line-height:1.08;margin:18px 0 18px;font-weight:800}
+    h1 em{font-style:normal;color:var(--green2)}
+    .hero-copy{font-size:14px;color:#687067;line-height:1.95;max-width:610px;margin:0}
+    .hero-stats{display:flex;gap:26px;border-left:1px solid var(--line);padding:6px 0 6px 27px;align-items:center}
+    .stat strong{display:block;font:500 32px var(--mono);letter-spacing:-.08em;color:var(--green)}
+    .stat span{font:10px var(--mono);letter-spacing:.08em;color:var(--muted)}
+    .stat-divider{height:39px;width:1px;background:var(--line)}
+
+    .board{padding:12px 0 86px}
+    .board-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:17px}
+    .micro{font:10px var(--mono);letter-spacing:.14em;color:var(--muted)}
+    .board-head h2{font-size:20px;letter-spacing:-.045em;margin:5px 0 0}
+    .board-hint{font-size:11px;color:var(--muted)}
+    .mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:250px 230px;gap:13px}
+    .tile{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:4px;text-align:left;padding:0;cursor:pointer;display:block;isolation:isolate;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;min-width:0}
+    .tile:hover{transform:translateY(-4px);border-color:#9dad9f;box-shadow:0 14px 32px rgba(32,49,38,.08)}
+    .tile:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+    .tile-mcp{grid-column:1 / span 7;grid-row:1 / span 2;background:#203f35;color:#f8f5ec;border-color:#203f35;padding:27px 29px}
+    .tile-energy{grid-column:8 / span 5;grid-row:1 / span 1;background:#e4e9de;padding:22px 24px;color:var(--ink)}
+    .tile-yolo{grid-column:8 / span 2;grid-row:2;background:#f9f7f0;padding:18px 18px;color:var(--ink)}
+    .tile-mushroom{grid-column:10 / span 3;grid-row:2;background:#e8e4d8;padding:18px 20px;color:var(--ink)}
+    .tile-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+    .tile-code{font:10px var(--mono);letter-spacing:.11em;opacity:.78}
+    .status{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(249,245,232,.32);border-radius:20px;padding:5px 9px;font:9px var(--mono);letter-spacing:.1em;color:#f5e6bd}
+    .status:before{content:"";width:6px;height:6px;border-radius:50%;background:#e5bd68;box-shadow:0 0 0 3px rgba(229,189,104,.13)}
+    .tile-mcp h3{position:relative;z-index:2;font-size:clamp(25px,3vw,38px);line-height:1.12;letter-spacing:-.06em;margin:28px 0 10px;max-width:380px}
+    .tile-mcp .tile-sub{position:relative;z-index:2;color:#d2ddd3;font-size:12px;line-height:1.8;max-width:360px;margin:0}
+    .tile-foot{position:absolute;left:29px;right:29px;bottom:23px;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .tile-tags{display:flex;flex-wrap:wrap;gap:6px}
+    .tile-tags span{border:1px solid rgba(239,245,235,.22);color:#dce8dc;padding:4px 7px;border-radius:2px;font:9px var(--mono)}
+    .open-mark{font:11px var(--mono);color:inherit;opacity:.8;white-space:nowrap}
+    .radar{position:absolute;right:-2px;top:48px;width:47%;height:75%;opacity:.85;z-index:0}
+    .radar svg{width:100%;height:100%;overflow:visible}
+    .radar .ring{fill:none;stroke:#92b09e;stroke-opacity:.3;stroke-width:1}
+    .radar .axis{stroke:#92b09e;stroke-opacity:.24;stroke-width:1;stroke-dasharray:3 5}
+    .radar .link{stroke:#d9bd79;stroke-width:1.4;stroke-opacity:.85;fill:none}
+    .radar .node{fill:#e6c77e;stroke:#203f35;stroke-width:3}
+    .radar .node2{fill:#8fb59d;stroke:#203f35;stroke-width:3}
+    .mcp-orbit-label{position:absolute;right:20px;bottom:21px;color:#b9cbbd;font:9px var(--mono);letter-spacing:.1em;z-index:1}
+
+    .tile-energy .tile-top,.tile-yolo .tile-top,.tile-mushroom .tile-top{color:#5f6b5e}
+    .tile-energy h3{font-size:21px;letter-spacing:-.05em;line-height:1.25;margin:15px 0 4px;position:relative;z-index:2}
+    .tile-energy .en{font:9px var(--mono);color:#7a8376;position:relative;z-index:2}
+    .tile-energy .tile-sub{font-size:11px;color:#667065;line-height:1.65;max-width:255px;margin:11px 0 0;position:relative;z-index:2}
+    .chart{position:absolute;right:8px;bottom:-6px;width:46%;height:57%;opacity:.85}
+    .chart svg{width:100%;height:100%}.chart .gridline{stroke:#b3c1b1;stroke-width:1;stroke-dasharray:3 5}.chart .curve{fill:none;stroke:#3f7358;stroke-width:2}.chart .shade{fill:#9dbca2;opacity:.27}.chart .dot{fill:#d27c50}
+    .tile-energy .open-mark{position:absolute;right:19px;top:20px;color:#48634f}
+
+    .tile-yolo h3,.tile-mushroom h3{font-size:15px;letter-spacing:-.045em;line-height:1.3;margin:16px 0 5px;position:relative;z-index:2}
+    .tile-yolo .en,.tile-mushroom .en{font:8px var(--mono);color:#7b8177;position:relative;z-index:2}
+    .tile-yolo .tile-sub,.tile-mushroom .tile-sub{font-size:10px;color:#6d746a;line-height:1.6;margin:9px 0 0;position:relative;z-index:2}
+    .tile-yolo .tile-top,.tile-mushroom .tile-top{font:9px var(--mono);letter-spacing:.1em}
+    .scan-art{position:absolute;right:-13px;bottom:-20px;width:122px;height:126px;opacity:.65}
+    .scan-art svg{width:100%;height:100%}.scan-art rect{fill:none;stroke:#3f7056;stroke-width:1.2}.scan-art .face{fill:none;stroke:#3f7056;stroke-width:1.1}.scan-art .corner{fill:none;stroke:#d17b50;stroke-width:2}
+    .spore-art{position:absolute;right:-5px;bottom:-9px;width:142px;height:130px;opacity:.8}
+    .spore-art svg{width:100%;height:100%}.spore-art .stem{stroke:#7c896f;stroke-width:2;fill:none}.spore-art .cap{fill:#b6b998;stroke:#7c896f;stroke-width:1.4}.spore-art .spore{fill:#d17b50}
+    .tile-mushroom .open-mark{position:absolute;right:16px;top:17px;color:#65705f}
+    .tile-yolo .open-mark{position:absolute;right:14px;top:17px;color:#65705f}
+
+    .below{padding:26px 0 72px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+    .below h2{font-size:23px;letter-spacing:-.05em;margin:8px 0 10px}
+    .below p{font-size:12px;color:#6f766c;line-height:1.9;margin:0;max-width:480px}
+    .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-top:8px}
+    .flow span{border:1px solid #cfd4c9;background:#f8f7f1;padding:8px 10px;color:#58685b;font:9px var(--mono);letter-spacing:.05em}
+    .flow i{font-style:normal;color:#9aa194;font-size:12px}
+    footer{border-top:1px solid var(--line);padding:21px 0 27px;display:flex;justify-content:space-between;gap:15px;color:#80867b;font:9px var(--mono);letter-spacing:.09em}
+
+    dialog{border:0;padding:0;width:min(760px,calc(100% - 30px));max-width:none;max-height:min(88vh,850px);background:var(--paper);color:var(--ink);box-shadow:0 30px 100px rgba(8,25,15,.28);border-radius:5px;overflow:auto}
+    dialog::backdrop{background:rgba(17,31,24,.62);backdrop-filter:blur(4px)}
+    .modal-head{position:sticky;top:0;z-index:5;background:rgba(251,250,246,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:17px 22px;display:flex;align-items:center;justify-content:space-between}
+    .modal-head span{font:10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+    .close{border:1px solid var(--line);background:transparent;color:var(--ink);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:17px;line-height:1}.close:hover{background:#e9eee7}
+    .modal-body{padding:31px 36px 38px}
+    .modal-kicker{display:flex;align-items:center;gap:9px;color:var(--green2);font:10px var(--mono);letter-spacing:.12em}
+    .modal-kicker .live{color:#94652d;background:#f3e7c9;padding:4px 8px;border-radius:20px}
+    .modal-body h2{font-size:34px;line-height:1.2;letter-spacing:-.06em;margin:13px 0 6px}
+    .modal-en{font:11px var(--mono);color:var(--muted)}
+    .modal-intro{font-size:13px;line-height:1.9;color:#687067;margin:20px 0 26px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:23px 30px}
+    .detail-block h3{font-size:12px;margin:0 0 8px;color:var(--green)}
+    .detail-block p,.detail-block ul{font-size:12px;line-height:1.85;color:#697167;margin:0}
+    .detail-block ul{padding-left:17px}
+    .chips{display:flex;gap:6px;flex-wrap:wrap}.chips span{font:10px var(--mono);padding:5px 8px;background:#e9eee7;color:#47634f;border-radius:2px}
+    .modal-note{margin-top:25px;background:#f0f1e9;border-left:2px solid var(--green2);padding:13px 15px;color:#677064;font-size:11px;line-height:1.8}
+    .modal-actions{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
+    .modal-actions a,.modal-actions button{border:1px solid #bdc7bb;background:transparent;padding:9px 12px;color:var(--green);font-size:11px;text-decoration:none;cursor:pointer}
+    .modal-actions a:hover,.modal-actions button:hover{background:#e8eee7}
+    @media(max-width:820px){.wrap{width:min(100% - 36px,1160px)}.hero{padding-top:60px;grid-template-columns:1fr;gap:25px}.hero-stats{border-left:0;border-top:1px solid var(--line);padding:18px 0 0}.mosaic{grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:300px 210px 210px}.tile-mcp{grid-column:1 / span 6;grid-row:1}.tile-energy{grid-column:1 / span 6;grid-row:2}.tile-yolo{grid-column:1 / span 3;grid-row:3}.tile-mushroom{grid-column:4 / span 3;grid-row:3}.tile-mcp h3{max-width:430px}.radar{right:3%;width:42%}.below{grid-template-columns:1fr;gap:23px}}
+    @media(max-width:520px){.wrap{width:calc(100% - 28px)}.topbar{height:62px}.nav{gap:13px;font-size:9px}.hero{padding:52px 0 37px}h1{font-size:46px}.hero-copy{font-size:12px}.hero-stats{gap:20px}.stat strong{font-size:27px}.board{padding-bottom:55px}.board-head{align-items:start;flex-direction:column;gap:7px}.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:300px 205px 205px;gap:9px}.tile-mcp{grid-column:1 / span 2;grid-row:1;padding:21px}.tile-mcp h3{font-size:29px;max-width:260px;margin-top:24px}.tile-mcp .tile-sub{font-size:10px;max-width:250px}.tile-foot{left:20px;right:20px;bottom:18px}.radar{width:51%;right:-3%;top:65px;opacity:.65}.mcp-orbit-label{display:none}.tile-energy{grid-column:1 / span 2;grid-row:2;padding:18px}.tile-energy h3{font-size:19px;margin-top:12px}.tile-yolo{grid-column:1;grid-row:3;padding:15px}.tile-mushroom{grid-column:2;grid-row:3;padding:15px}.tile-yolo h3,.tile-mushroom h3{font-size:13px}.tile-yolo .tile-sub,.tile-mushroom .tile-sub{font-size:9px}.scan-art{width:100px}.spore-art{width:100px}.modal-body{padding:25px 21px 29px}.modal-body h2{font-size:27px}.detail-grid{grid-template-columns:1fr;gap:18px}.modal-intro{font-size:12px}.below{padding:23px 0 50px}footer{flex-direction:column}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="#top" aria-label="Project Fieldnotes 홈"><span class="brand-mark">C</span><span>CSJ / FIELDNOTES</span></a>
+      <nav class="nav" aria-label="주요 메뉴"><a href="#work">PROJECT MAP</a><a href="#approach">APPROACH</a></nav>
+    </div>
+  </header>
+  <main id="top">
+    <section class="wrap hero">
+      <div>
+        <div class="eyebrow">DATA · MACHINE LEARNING · SECURITY</div>
+        <h1>데이터로 문제를<br><em>탐색하고 연결하다.</em></h1>
+        <p class="hero-copy">학부 데이터·AI 실습부터 현재 진행 중인 MCP 공급망 모니터링 프로젝트까지. 문제를 어떻게 바라봤고, 어떤 데이터와 기술로 접근했는지 기록합니다.</p>
+      </div>
+      <aside class="hero-stats" aria-label="프로젝트 구성">
+        <div class="stat"><strong>04</strong><span>PROJECTS</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>03</strong><span>ACADEMIC</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><strong>01</strong><span>IN PROGRESS</span></div>
+      </aside>
+    </section>
+
+    <section class="wrap board" id="work">
+      <div class="board-head">
+        <div><div class="micro">THE PROJECT LANDSCAPE / 2023—2026</div><h2>프로젝트 맵</h2></div>
+        <div class="board-hint">각 영역을 선택하면 프로젝트의 과정과 내용을 볼 수 있습니다 ↗</div>
+      </div>
+      <div class="mosaic" aria-label="프로젝트 선택 영역">
+        <button class="tile tile-mcp" data-project="mcp" aria-haspopup="dialog">
+          <div class="tile-top"><span class="tile-code">04 / SECURITY & DATA PIPELINE</span><span class="status">IN PROGRESS</span></div>
+          <h3>MCP Supply<br>Chain Radar</h3>
+          <p class="tile-sub">MCP 서버의 도구 명세와 권한, 종속 패키지 위험을 함께 살펴보고 변화 신호를 추적하는 프로젝트</p>
+          <div class="radar" aria-hidden="true">
+            <svg viewBox="0 0 340 300">
+              <circle class="ring" cx="175" cy="145" r="47"/><circle class="ring" cx="175" cy="145" r="88"/><circle class="ring" cx="175" cy="145" r="130"/>
+              <path class="axis" d="M45 145H305M175 15V275M83 53L267 237M83 237L267 53"/>
+              <path class="link" d="M175 145L95 97L67 165L145 220L245 183L264 86L175 145M95 97L264 86M67 165L245 183"/>
+              <circle class="node" cx="175" cy="145" r="7"/><circle class="node2" cx="95" cy="97" r="6"/><circle class="node" cx="67" cy="165" r="5"/><circle class="node2" cx="145" cy="220" r="6"/><circle class="node" cx="245" cy="183" r="6"/><circle class="node2" cx="264" cy="86" r="5"/>
+            </svg>
+          </div>
+          <div class="mcp-orbit-label">SPEC / PERMISSION / DEPENDENCY</div>
+          <div class="tile-foot"><div class="tile-tags"><span>MCP</span><span>AWS · PLANNED</span><span>RISK SIGNALS</span></div><span class="open-mark">EXPLORE ↗</span></div>
+        </button>
+
+        <button class="tile tile-energy" data-project="energy" aria-haspopup="dialog">
+          <div class="tile-top"><span class="tile-code">01 / REGRESSION</span><span class="tile-code">ACADEMIC · ML</span></div>
+          <h3>에너지 효율 예측</h3><div class="en">ENERGY EFFICIENCY REGRESSION</div>
+          <p class="tile-sub">건물 특성 데이터를 바탕으로 냉·난방 부하를 예측하고 회귀 모델의 결과를 비교한 실습</p>
+          <div class="chart" aria-hidden="true"><svg viewBox="0 0 260 145" preserveAspectRatio="none"><path class="gridline" d="M0 25H260M0 65H260M0 105H260M40 0V145M100 0V145M160 0V145M220 0V145"/><path class="shade" d="M0 130L25 112L52 117L80 78L109 92L139 49L170 63L201 31L230 43L260 8V145H0Z"/><path class="curve" d="M0 130L25 112L52 117L80 78L109 92L139 49L170 63L201 31L230 43L260 8"/><circle class="dot" cx="139" cy="49" r="4"/><circle class="dot" cx="230" cy="43" r="4"/></svg></div>
+          <span class="open-mark">OPEN ↗</span>
+        </button>
+
+        <button class="tile tile-yolo" data-project="yolo" aria-haspopup="dialog">
+          <div class="tile-top"><span>02 / VISION</span><span class="open-mark">↗</span></div>
+          <h3>마스크 착용 탐지</h3><div class="en">YOLOv5 DETECTION</div>
+          <p class="tile-sub">이미지와 바운딩 박스를 정리해 객체 탐지 모델 학습</p>
+          <div class="scan-art" aria-hidden="true"><svg viewBox="0 0 130 130"><rect x="24" y="17" width="75" height="94" rx="3"/><path class="face" d="M62 33c-12 0-19 12-19 27 0 16 8 28 19 28s19-12 19-28c0-15-7-27-19-27Z M45 64h34M48 70l14 8 14-8"/><path class="corner" d="M18 31V15h16M89 15h16v16M105 96v17H89M34 113H18V96"/></svg></div>
+        </button>
+
+        <button class="tile tile-mushroom" data-project="mushroom" aria-haspopup="dialog">
+          <div class="tile-top"><span>03 / CLASSIFICATION</span><span class="open-mark">↗</span></div>
+          <h3>버섯 독성 여부 분류</h3><div class="en">MUSHROOM CLASSIFICATION</div>
+          <p class="tile-sub">범주형 특성을 정리하고 식용·독성 이진 분류 모델을 실습</p>
+          <div class="spore-art" aria-hidden="true"><svg viewBox="0 0 145 130"><path class="stem" d="M74 67C72 82 69 99 70 118M71 88L55 105M72 94L90 111"/><path class="cap" d="M26 65C27 34 48 18 74 18s48 16 49 47c-22 16-75 16-97 0Z"/><path class="stem" d="M41 66c20 12 48 12 67 0M54 61l9-16M77 49l-1 13M99 61l-8-15"/><circle class="spore" cx="36" cy="24" r="3"/><circle class="spore" cx="114" cy="34" r="2.5"/><circle class="spore" cx="119" cy="79" r="2"/></svg></div>
+        </button>
+      </div>
+    </section>
+
+    <section class="wrap below" id="approach">
+      <div><div class="micro">HOW I APPROACH A PROJECT</div><h2>결과보다 먼저,<br>문제와 데이터를 확인합니다.</h2><p>각 프로젝트의 규모와 목적은 다르지만, 먼저 데이터의 구조와 의미를 파악하고 문제에 맞는 방법을 선택한 뒤 결과를 검토하는 흐름을 중요하게 생각합니다. 진행 중인 프로젝트는 계획과 실제 구현을 구분해 기록합니다.</p></div>
+      <div class="flow" aria-label="프로젝트 진행 흐름"><span>QUESTION</span><i>→</i><span>DATA</span><i>→</i><span>PREPARE</span><i>→</i><span>MODEL / ANALYZE</span><i>→</i><span>REVIEW</span></div>
+    </section>
+  </main>
+  <footer class="wrap"><span>CSJ / PROJECT FIELDNOTES</span><span>DATA · ML · SECURITY</span></footer>
+
+  <dialog id="project-dialog" aria-labelledby="dialog-title">
+    <div class="modal-head"><span id="dialog-label">PROJECT NOTES</span><button class="close" type="button" aria-label="상세 내용 닫기">×</button></div>
+    <div class="modal-body" id="dialog-content"></div>
+  </dialog>
+
+  <script>
+    const projectDetails = {
+      mcp: {
+        label:'04 / SECURITY & DATA PIPELINE', status:'IN PROGRESS', title:'MCP Supply Chain Radar', en:'MCP 서버 생태계의 구성과 위험 신호를 추적하는 프로젝트',
+        intro:'MCP를 도입하는 환경에서 서버가 제공하는 도구와 요청 권한뿐 아니라, 서버가 의존하는 패키지의 위험도 함께 살펴볼 필요가 있다는 문제의식에서 출발했습니다. 명세·권한·설정과 종속 패키지 정보를 모아 분석하고, 시간에 따른 변경과 위험 신호를 추적하는 것을 목표로 합니다.',
+        blocks:[
+          ['프로젝트 목표','MCP 서버의 기능 명세, 권한 및 설정, 종속 패키지 정보를 통합적으로 파악할 수 있는 점검·모니터링 흐름을 설계합니다.'],
+          ['주요 조사 대상','서버가 노출하는 Tool 명세와 입력 구조, 요청 권한 및 설정, 서버 종속 패키지와 버전 정보, 관련 보안 위험 신호'],
+          ['구상 중인 처리 흐름',['MCP 서버 및 패키지 정보 수집','명세·권한·설정·의존성 데이터 정규화','규칙 기반 점검 및 위험 신호 분석','변경 이력과 위험 추이 시각화']],
+          ['기술 적용 방향','AWS 기반 데이터 수집·저장·처리 구조를 검토하고, AI/ML을 활용한 위험 신호 분류·분석 가능성을 탐색할 계획입니다. 구체적인 서비스와 모델은 구현 가능성과 데이터 확보 상황에 따라 결정합니다.']
+        ], chips:['MCP','AWS · 계획 단계','DATA PIPELINE','AI / ML · 검토 중'],
+        note:'진행 중인 프로젝트입니다. 위 내용은 현재 확정한 문제 정의와 설계 방향이며, 아직 구현 완료된 기능이나 검증된 탐지 성능을 의미하지 않습니다.'
+      },
+      energy: {
+        label:'01 / REGRESSION', title:'에너지 효율 예측', en:'Energy Efficiency Regression',
+        intro:'Energy Efficiency 데이터셋을 활용해 건물 특성으로 냉·난방 부하를 예측하는 회귀 문제를 다뤘습니다. 선형 회귀를 기준 모델로 두고 Random Forest Regressor를 적용해 예측 결과를 비교했습니다.',
+        blocks:[
+          ['수행 내용',['데이터 구조와 변수 확인','학습·테스트 데이터 8:2 분할','StandardScaler를 이용한 특성 표준화','Linear Regression과 Random Forest Regressor 비교','GridSearchCV와 5-Fold 교차검증으로 파라미터 탐색']],
+          ['모델 비교','Linear Regression을 기준 모델로 사용하고 Random Forest Regressor의 비선형 예측 결과와 비교했습니다.'],
+          ['평가 방법','RMSE, MAE, R²를 이용해 예측 오차와 설명력을 확인하고, 실제값과 예측값의 산점도를 통해 결과를 살펴봤습니다.'],
+          ['사용 기술','Python · Pandas · Scikit-learn · StandardScaler · GridSearchCV · Matplotlib']
+        ], chips:['REGRESSION','LINEAR REGRESSION','RANDOM FOREST','MODEL EVALUATION'],
+        note:'이 페이지에는 확인 가능한 수행 절차만 정리했습니다. 구체적인 성능 수치는 노트북 실행 환경과 결과를 다시 검증한 뒤 추가합니다.'
+      },
+      yolo: {
+        label:'02 / OBJECT DETECTION', title:'마스크 착용 상태 탐지', en:'YOLOv5 Mask Detection',
+        intro:'이미지 안에서 마스크 착용 상태를 객체 단위로 탐지하는 컴퓨터 비전 실습입니다. 이미지와 바운딩 박스 라벨을 정리하고 YOLOv5 학습 형식에 맞춰 데이터셋을 구성했습니다.',
+        blocks:[
+          ['수행 내용',['이미지와 라벨 파일에서 바운딩 박스 정보 추출','with_mask, without_mask, mask_dumb 클래스 매핑','라벨 정보를 YOLO 형식으로 변환','학습·검증·테스트 데이터를 6:2:2로 분할','YOLOv5 모델 학습 및 테스트 이미지 예측 결과 확인']],
+          ['데이터 구성','실습 자료 기준 약 801장의 이미지 데이터를 다뤘습니다. 클래스 라벨과 바운딩 박스 좌표를 모델 입력 형식에 맞게 구성했습니다.'],
+          ['평가 방법','Precision, Recall, mAP 등 객체 탐지 평가 지표와 학습 중 손실 변화 추이를 확인했습니다.'],
+          ['사용 기술','Python · OpenCV · Pandas · YOLOv5 · Object Detection']
+        ], chips:['COMPUTER VISION','YOLOv5','BOUNDING BOX','PRECISION / RECALL / mAP'],
+        note:'실습 코드와 보고서에 나타난 데이터 구성·평가 항목을 요약했습니다. 성능 수치는 확인되지 않아 기재하지 않았습니다.'
+      },
+      mushroom: {
+        label:'03 / CLASSIFICATION', title:'버섯 독성 여부 분류', en:'Mushroom Classification',
+        intro:'버섯의 범주형 특성 데이터를 이용해 식용과 독성 여부를 구분하는 이진 분류 실습입니다. 결측값과 범주형 변수를 처리한 뒤 Random Forest 모델을 학습하고 튜닝 전후 결과를 확인했습니다.',
+        blocks:[
+          ['수행 내용',['?로 표시된 값을 결측치로 변환하고 결측 행 제거','범주형 특성을 원-핫 인코딩으로 변환','독성(p)과 식용(e)을 이진 타깃으로 변환','RandomForestClassifier 학습','GridSearchCV와 5-Fold 교차검증으로 파라미터 탐색']],
+          ['모델 및 평가','기본 모델과 튜닝 모델을 비교하고 Classification Report, Confusion Matrix, ROC Curve 및 AUC를 확인했습니다.'],
+          ['데이터 처리','Pandas를 이용해 결측치를 처리하고 범주형 데이터를 수치형 특성으로 변환했습니다. 학습·테스트 데이터는 8:2로 분할했습니다.'],
+          ['사용 기술','Python · Pandas · Scikit-learn · Random Forest · One-Hot Encoding']
+        ], chips:['BINARY CLASSIFICATION','RANDOM FOREST','GRID SEARCH','ROC / AUC'],
+        note:'교육용 데이터셋을 사용한 머신러닝 실습입니다. 실제 버섯의 식용 여부를 판단하거나 식품 안전에 활용할 수 있는 시스템을 의미하지 않습니다.'
+      }
+    };
+    const dialog = document.getElementById('project-dialog');
+    const content = document.getElementById('dialog-content');
+    const label = document.getElementById('dialog-label');
+    const esc = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    function openProject(key){
+      const p=projectDetails[key]; if(!p) return;
+      label.textContent=p.label;
+      const blocks=p.blocks.map(([heading,body])=>`<section class="detail-block"><h3>${esc(heading)}</h3>${Array.isArray(body)?`<ul>${body.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:`<p>${esc(body)}</p>`}</section>`).join('');
+      const status=p.status?`<span class="live">${esc(p.status)}</span>`:'';
+      content.innerHTML=`<div class="modal-kicker">PROJECT FIELDNOTE ${status}</div><h2 id="dialog-title">${esc(p.title)}</h2><div class="modal-en">${esc(p.en)}</div><p class="modal-intro">${esc(p.intro)}</p><div class="detail-grid">${blocks}</div><div class="modal-actions"><button type="button" class="copy-title">프로젝트명 복사</button></div><div class="modal-note">${esc(p.note)}</div>`;
+      dialog.showModal();
+      const copy=content.querySelector('.copy-title');
+      copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(p.title);copy.textContent='복사 완료';}catch{copy.textContent='복사할 수 없음';}});
+    }
+    document.querySelectorAll('[data-project]').forEach(button=>button.addEventListener('click',()=>openProject(button.dataset.project)));
+    document.querySelector('.close').addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&dialog.open)dialog.close();});
+  </script>
+</body>
+</html>
