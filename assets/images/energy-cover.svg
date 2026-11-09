@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480">
+<defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#edf0e5"/><stop offset="1" stop-color="#cfdccc"/></linearGradient></defs><rect width="760" height="480" fill="url(#bg)"/>
+<g stroke="#9cae9e" stroke-opacity=".35" stroke-dasharray="4 7"><path d="M70 90H700M70 170H700M70 250H700M70 330H700M70 410H700M150 55V420M280 55V420M410 55V420M540 55V420M670 55V420"/></g>
+<path d="M82 375C170 340 210 300 285 290S400 230 470 210 600 130 684 100" fill="none" stroke="#366c50" stroke-width="6" stroke-linecap="round"/>
+<path d="M82 375C170 340 210 300 285 290S400 230 470 210 600 130 684 100V420H82Z" fill="#8cac91" opacity=".2"/>
+<g fill="#d27b50" stroke="#f6f5ed" stroke-width="5"><circle cx="135" cy="351" r="10"/><circle cx="205" cy="320" r="10"/><circle cx="285" cy="286" r="10"/><circle cx="355" cy="265" r="10"/><circle cx="435" cy="230" r="10"/><circle cx="520" cy="183" r="10"/><circle cx="610" cy="145" r="10"/></g>
+<g fill="#405747" font-family="monospace"><text x="48" y="48" font-size="15" letter-spacing="3">ENERGY EFFICIENCY</text><text x="48" y="73" font-size="10" opacity=".7" letter-spacing="2">REGRESSION MODEL / ACTUAL VS PREDICTED</text><text x="48" y="452" font-size="10" opacity=".6" letter-spacing="2">SAMPLE VISUAL · ILLUSTRATIVE CHART</text></g>
+<g fill="#526d58" opacity=".8" font-family="monospace" font-size="11"><text x="80" y="440">LOW</text><text x="654" y="440">HIGH</text></g>
+</svg>

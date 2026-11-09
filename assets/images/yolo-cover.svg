@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#e8e9df"/><stop offset="1" stop-color="#c7d4c7"/></linearGradient></defs><rect width="760" height="480" fill="url(#bg)"/>
+<g opacity=".28" fill="#829b88"><circle cx="530" cy="180" r="115"/><circle cx="210" cy="345" r="80"/></g>
+<g fill="none" stroke="#385f49" stroke-width="3" opacity=".9"><path d="M285 78C225 78 185 137 185 211c0 91 48 157 111 157s111-66 111-157C407 137 367 78 307 78Z"/><path d="M230 212c34 12 87 12 126 0M238 238c29 22 78 22 107 0M255 151h18M338 151h18"/></g>
+<path d="M235 247Q296 216 365 247L356 278Q298 298 244 278Z" fill="#7da28c" stroke="#385f49" stroke-width="3"/>
+<g fill="none" stroke="#d2764d" stroke-width="5"><path d="M150 94V60H184M430 60H464V94M464 333V367H430M184 367H150V333"/></g>
+<g fill="none" stroke="#4a7658" stroke-width="2"><rect x="135" y="45" width="345" height="340" rx="4"/><path d="M150 112H465" stroke-dasharray="5 7"/></g>
+<g fill="#365b47" font-family="monospace"><text x="48" y="42" font-size="15" letter-spacing="3">YOLOv5 / OBJECT DETECTION</text><text x="48" y="450" font-size="10" opacity=".65" letter-spacing="2">SAMPLE VISUAL · DETECTION MOCKUP</text></g>
+<g fill="#fff" font-family="monospace" font-size="12"><rect x="490" y="90" width="208" height="42" rx="3" fill="#416c52"/><text x="508" y="116">mask : detected</text><rect x="490" y="148" width="208" height="42" rx="3" fill="#416c52" opacity=".8"/><text x="508" y="174">confidence : 0.93*</text></g>
+<text x="490" y="220" fill="#5d7560" font-family="monospace" font-size="10">* ILLUSTRATIVE VALUE</text>
+</svg>

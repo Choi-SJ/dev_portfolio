@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 480">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#18392f"/><stop offset="1" stop-color="#426b55"/></linearGradient><radialGradient id="glow"><stop stop-color="#d8c17e" stop-opacity=".24"/><stop offset="1" stop-color="#d8c17e" stop-opacity="0"/></radialGradient></defs>
+<rect width="760" height="480" fill="url(#bg)"/><circle cx="498" cy="232" r="240" fill="url(#glow)"/>
+<g stroke="#bdd0bd" stroke-opacity=".22" stroke-width="1"><path d="M0 80H760M0 160H760M0 240H760M0 320H760M0 400H760M95 0V480M190 0V480M285 0V480M380 0V480M475 0V480M570 0V480M665 0V480"/></g>
+<g fill="none" stroke="#d8c17e" stroke-width="3" opacity=".9"><path d="M376 237L490 127L615 185L570 325L422 365L305 300Z"/><path d="M376 237L305 108L490 127M490 127L632 67M615 185L687 266"/></g>
+<g fill="#e8d28d" stroke="#24483b" stroke-width="7"><circle cx="376" cy="237" r="17"/><circle cx="490" cy="127" r="13"/><circle cx="615" cy="185" r="12"/><circle cx="570" cy="325" r="13"/><circle cx="422" cy="365" r="10"/></g>
+<g fill="#a5c5ad" stroke="#24483b" stroke-width="6"><circle cx="305" cy="108" r="12"/><circle cx="305" cy="300" r="12"/><circle cx="632" cy="67" r="9"/></g>
+<g fill="#eaf1e7" font-family="monospace"><text x="42" y="52" font-size="14" letter-spacing="3">MCP SUPPLY CHAIN</text><text x="42" y="77" font-size="10" opacity=".65" letter-spacing="2">TOOL SPEC / PERMISSION / DEPENDENCY</text><text x="42" y="432" font-size="10" opacity=".6" letter-spacing="2">SAMPLE VISUAL · CONCEPT MOCKUP</text></g>
+<g fill="none" stroke="#dbe9d9" stroke-opacity=".48"><rect x="35" y="105" width="190" height="95" rx="5"/><path d="M55 133H185M55 151H158M55 169H198"/><rect x="35" y="220" width="190" height="95" rx="5"/><path d="M55 248H185M55 266H158M55 284H198"/></g>
+</svg>
