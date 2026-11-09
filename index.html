@@ -92,10 +92,6 @@
     .modal-body{padding:31px 36px 38px}
     .modal-visual{width:100%;height:190px;overflow:hidden;border-radius:3px;margin:0 0 23px;background:#e5e8df}
     .modal-visual img{display:block;width:100%;height:100%;object-fit:cover}
-    .modal-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 23px}
-    .modal-gallery figure{min-width:0;margin:0;padding:10px;background:#f0f1e9;border-radius:3px}
-    .modal-gallery img{display:block;width:100%;height:190px;object-fit:contain;background:#fff;border-radius:2px}
-    .modal-gallery figcaption{padding:8px 2px 0;color:#687067;font-size:10px;line-height:1.5}
     .modal-kicker{display:flex;align-items:center;gap:9px;color:var(--green2);font:10px var(--mono);letter-spacing:.12em}
     .modal-kicker .live{color:#94652d;background:#f3e7c9;padding:4px 8px;border-radius:20px}
     .modal-body h2{font-size:34px;line-height:1.2;letter-spacing:-.06em;margin:13px 0 6px}
@@ -105,6 +101,12 @@
     .detail-block h3{font-size:12px;margin:0 0 8px;color:var(--green)}
     .detail-block p,.detail-block ul{font-size:12px;line-height:1.85;color:#697167;margin:0}
     .detail-block ul{padding-left:17px}
+    .result-gallery{margin-top:25px;padding-top:21px;border-top:1px solid var(--line)}
+    .result-gallery h3{font-size:12px;margin:0 0 12px;color:var(--green)}
+    .result-gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .result-gallery figure{min-width:0;margin:0;padding:10px;background:#f0f1e9;border-radius:3px}
+    .result-gallery img{display:block;width:100%;height:220px;object-fit:contain;background:#fff;border-radius:2px}
+    .result-gallery figcaption{padding:8px 2px 0;color:#687067;font-size:10px;line-height:1.5}
     .chips{display:flex;gap:6px;flex-wrap:wrap}.chips span{font:10px var(--mono);padding:5px 8px;background:#e9eee7;color:#47634f;border-radius:2px}
     .modal-note{margin-top:25px;background:#f0f1e9;border-left:2px solid var(--green2);padding:13px 15px;color:#677064;font-size:11px;line-height:1.8}
     .modal-actions{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
@@ -138,7 +140,7 @@
       .tile-foot{left:17px;right:17px;bottom:13px}.tile-tags span{font-size:8px;padding:3px 5px}
       .tile-mcp .tile-image{width:44%}.tile-energy .tile-image{width:42%}
       .tile-yolo .tile-image,.tile-mushroom .tile-image{width:42%}
-      .modal-body{padding:25px 21px 29px}.modal-body h2{font-size:27px}.detail-grid{grid-template-columns:1fr;gap:18px}.modal-intro{font-size:12px}.modal-visual{height:145px}.modal-gallery{grid-template-columns:1fr}.modal-gallery img{height:180px}
+      .modal-body{padding:25px 21px 29px}.modal-body h2{font-size:27px}.detail-grid{grid-template-columns:1fr;gap:18px}.modal-intro{font-size:12px}.modal-visual{height:145px}
       .below{padding:23px 0 50px}footer{flex-direction:column}
     }
     @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
@@ -184,7 +186,7 @@
         </button>
 
         <button class="tile tile-energy" data-project="energy" aria-haspopup="dialog">
-          <img class="tile-image" src="assets/images/Energy1.png" alt="에너지 효율 예측의 실제값과 예측값 비교 그래프" loading="lazy">
+          <img class="tile-image" src="assets/images/energy-cover.svg" alt="에너지 효율 회귀 분석을 표현한 예시 산점도와 회귀 곡선" loading="lazy">
           <div class="tile-copy">
             <div class="tile-top"><span class="tile-code">01 / REGRESSION</span><span class="tile-code">ACADEMIC · ML</span></div>
             <h3>에너지 효율 예측</h3><div class="en">ENERGY EFFICIENCY REGRESSION</div>
@@ -194,7 +196,7 @@
         </button>
 
         <button class="tile tile-yolo" data-project="yolo" aria-haspopup="dialog">
-          <img class="tile-image" src="assets/images/Mask1.png" alt="YOLOv5 마스크 탐지 모델의 학습 및 검증 지표 그래프" loading="lazy">
+          <img class="tile-image" src="assets/images/yolo-cover.svg" alt="YOLO 객체 탐지 바운딩 박스를 표현한 예시 이미지" loading="lazy">
           <div class="tile-copy">
             <div class="tile-top"><span>02 / VISION</span><span class="tile-code">ACADEMIC</span></div>
             <h3>마스크 착용 탐지</h3><div class="en">YOLOv5 DETECTION</div>
@@ -204,7 +206,7 @@
         </button>
 
         <button class="tile tile-mushroom" data-project="mushroom" aria-haspopup="dialog">
-          <img class="tile-image" src="assets/images/Mushroom1.png" alt="버섯 독성 여부 분류 모델의 혼동 행렬" loading="lazy">
+          <img class="tile-image" src="assets/images/mushroom-cover.svg" alt="버섯 분류 프로젝트를 위한 식물학 스타일 예시 일러스트" loading="lazy">
           <div class="tile-copy">
             <div class="tile-top"><span>03 / CLASSIFICATION</span><span class="tile-code">ACADEMIC</span></div>
             <h3>버섯 독성 여부 분류</h3><div class="en">MUSHROOM CLASSIFICATION</div>
@@ -241,8 +243,10 @@
         note:'진행 중인 프로젝트입니다. 위 내용은 현재 확정한 문제 정의와 설계 방향이며, 아직 구현 완료된 기능이나 검증된 탐지 성능을 의미하지 않습니다.'
       },
       energy: {
-        label:'01 / REGRESSION', image:'assets/images/Energy1.png', title:'에너지 효율 예측', en:'Energy Efficiency Regression',
-        images:[{src:'assets/images/Energy1.png',alt:'냉방 부하 실제값과 예측값 비교',caption:'Actual vs Predicted Cooling Load'}],
+        label:'01 / REGRESSION', image:'assets/images/energy-cover.svg', title:'에너지 효율 예측', en:'Energy Efficiency Regression',
+        resultImages:[
+          {src:'assets/images/Energy1.png',alt:'냉방 부하 실제값과 예측값 비교 그래프',caption:'Actual vs Predicted Cooling Load'}
+        ],
         intro:'Energy Efficiency 데이터셋을 활용해 건물 특성으로 냉·난방 부하를 예측하는 회귀 문제를 다뤘습니다. 선형 회귀를 기준 모델로 두고 Random Forest Regressor를 적용해 예측 결과를 비교했습니다.',
         blocks:[
           ['수행 내용',['데이터 구조와 변수 확인','학습·테스트 데이터 8:2 분할','StandardScaler를 이용한 특성 표준화','Linear Regression과 Random Forest Regressor 비교','GridSearchCV와 5-Fold 교차검증으로 파라미터 탐색']],
@@ -253,11 +257,11 @@
         note:'이 페이지에는 확인 가능한 수행 절차만 정리했습니다. 구체적인 성능 수치는 노트북 실행 환경과 결과를 다시 검증한 뒤 추가합니다.'
       },
       yolo: {
-        label:'02 / OBJECT DETECTION', image:'assets/images/Mask1.png', title:'마스크 착용 상태 탐지', en:'YOLOv5 Mask Detection',
-        images:[
+        label:'02 / OBJECT DETECTION', image:'assets/images/yolo-cover.svg', title:'마스크 착용 상태 탐지', en:'YOLOv5 Mask Detection',
+        resultImages:[
           {src:'assets/images/Mask1.png',alt:'YOLOv5 학습 및 검증 손실과 정밀도, 재현율, mAP 그래프',caption:'Training & Validation Metrics'},
           {src:'assets/images/Mask2.png',alt:'마스크 탐지 기준 모델의 혼동 행렬',caption:'Baseline Confusion Matrix'},
-          {src:'assets/images/Mask3.png',alt:'마스크 탐지 모델의 조정 후 혼동 행렬',caption:'Tuned Model Confusion Matrix'}
+          {src:'assets/images/Mask3.png',alt:'마스크 탐지 조정 모델의 혼동 행렬',caption:'Tuned Model Confusion Matrix'}
         ],
         intro:'이미지 안에서 마스크 착용 상태를 객체 단위로 탐지하는 컴퓨터 비전 실습입니다. 이미지와 바운딩 박스 라벨을 정리하고 YOLOv5 학습 형식에 맞춰 데이터셋을 구성했습니다.',
         blocks:[
@@ -269,8 +273,8 @@
         note:'실습 코드와 보고서에 나타난 데이터 구성·평가 항목을 요약했습니다. 성능 수치는 확인되지 않아 기재하지 않았습니다.'
       },
       mushroom: {
-        label:'03 / CLASSIFICATION', image:'assets/images/Mushroom1.png', title:'버섯 독성 여부 분류', en:'Mushroom Classification',
-        images:[
+        label:'03 / CLASSIFICATION', image:'assets/images/mushroom-cover.svg', title:'버섯 독성 여부 분류', en:'Mushroom Classification',
+        resultImages:[
           {src:'assets/images/Mushroom1.png',alt:'버섯 분류 기본 모델의 혼동 행렬',caption:'Baseline Confusion Matrix'},
           {src:'assets/images/Mushroom2.png',alt:'버섯 분류 튜닝 모델의 혼동 행렬',caption:'Tuned Model Confusion Matrix'},
           {src:'assets/images/Mushroom3.png',alt:'버섯 독성 여부 분류 모델의 ROC 곡선',caption:'ROC Curve'}
@@ -294,10 +298,8 @@
       label.textContent=p.label;
       const blocks=p.blocks.map(([heading,body])=>`<section class="detail-block"><h3>${esc(heading)}</h3>${Array.isArray(body)?`<ul>${body.map(item=>`<li>${esc(item)}</li>`).join('')}</ul>`:`<p>${esc(body)}</p>`}</section>`).join('');
       const status=p.status?`<span class="live">${esc(p.status)}</span>`:'';
-      const visuals=p.images
-        ?`<div class="modal-gallery">${p.images.map(image=>`<figure><img src="${esc(image.src)}" alt="${esc(image.alt)}" loading="lazy"><figcaption>${esc(image.caption)}</figcaption></figure>`).join('')}</div>`
-        :`<div class="modal-visual"><img src="${esc(p.image)}" alt="${esc(p.title)} 프로젝트 이미지"></div>`;
-      content.innerHTML=`${visuals}<div class="modal-kicker">PROJECT FIELDNOTE ${status}</div><h2 id="dialog-title">${esc(p.title)}</h2><div class="modal-en">${esc(p.en)}</div><p class="modal-intro">${esc(p.intro)}</p><div class="detail-grid">${blocks}</div><div class="modal-actions"><button type="button" class="copy-title">프로젝트명 복사</button></div><div class="modal-note">${esc(p.note)}</div>`;
+      const resultImages=p.resultImages?`<section class="result-gallery" aria-label="프로젝트 결과 이미지"><h3>프로젝트 결과 이미지</h3><div class="result-gallery-grid">${p.resultImages.map(image=>`<figure><img src="${esc(image.src)}" alt="${esc(image.alt)}" loading="lazy"><figcaption>${esc(image.caption)}</figcaption></figure>`).join('')}</div></section>`:'';
+      content.innerHTML=`<div class="modal-visual"><img src="${esc(p.image)}" alt="${esc(p.title)} 프로젝트 이미지"></div><div class="modal-kicker">PROJECT FIELDNOTE ${status}</div><h2 id="dialog-title">${esc(p.title)}</h2><div class="modal-en">${esc(p.en)}</div><p class="modal-intro">${esc(p.intro)}</p><div class="detail-grid">${blocks}</div>${resultImages}<div class="modal-actions"><button type="button" class="copy-title">프로젝트명 복사</button></div><div class="modal-note">${esc(p.note)}</div>`;
       dialog.showModal();
       const copy=content.querySelector('.copy-title');
       copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(p.title);copy.textContent='복사 완료';}catch{copy.textContent='복사할 수 없음';}});
